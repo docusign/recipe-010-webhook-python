@@ -52,6 +52,7 @@ def send():
     # STEP 2 - Create and send envelope with eventNotification
     #
     webhook_url = ds_recipe_lib.get_base_url() + webhook_path
+    webhook_url = webhook_url.replace("http","https")
     event_notification = {"url": webhook_url,
         "loggingEnabled": "true", # The api wants strings for true/false
         "requireAcknowledgment": "true",
@@ -65,10 +66,10 @@ def send():
         "includeDocumentFields": "true",
         "includeCertificateOfCompletion": "true",
         "envelopeEvents": [ # for this recipe, we're requesting notifications
-            # for all envelope and recipient events
+                            # for all envelope and recipient events
             {"envelopeEventStatusCode": "sent"},
-              {"envelopeEventStatusCode": "delivered"},
-              {"envelopeEventStatusCode": "completed"},
+            {"envelopeEventStatusCode": "delivered"},
+            {"envelopeEventStatusCode": "completed"},
             {"envelopeEventStatusCode": "declined"},
             {"envelopeEventStatusCode": "voided"}],
         "recipientEvents": [

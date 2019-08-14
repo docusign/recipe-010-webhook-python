@@ -78,11 +78,11 @@ def login():
     try:
         r = requests.get(ds_api_login_url, headers=ds_headers)
     except requests.exceptions.RequestException as e:
-        return ({'ok': false, 'msg': "Error calling DocuSign login: " + e})
+        return ({'ok': False, 'msg': "Error calling DocuSign login: " + e})
         
     status = r.status_code
     if (status != 200): 
-        return ({'ok': false, 'msg': "Error calling DocuSign login, status is: " + str(status)})
+        return ({'ok': False, 'msg': "Error calling DocuSign login, status is: " + str(status)})
 
     # get the baseUrl and accountId from the response body
     response = r.json()
@@ -154,8 +154,8 @@ def make_temp_email():
 
 def get_temp_email_access(email):
     # just create something unique to use with maildrop.cc
-    # Read the email at https://mailinator.com/inbox2.jsp?public_to=<mailbox_name>
-    url = "https://mailinator.com/inbox2.jsp?public_to="
+    # Read the email at https://www.mailinator.com/v3/index.jsp?zone=public&query=<mailbox_name>
+    url = "https://mailinator.com/v3/index.jsp?zone=public&query="
     parts = string.split(email, "@")
     if (parts[1] != temp_email_server):
         return False
